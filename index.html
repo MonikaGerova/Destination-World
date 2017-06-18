@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Destination World</title>
+
+    <link rel="stylesheet" href="css/hint.css">
+    <link href="css/styles.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/icons-css/animation.css">
+    <link rel="stylesheet" href="css/icons-css/icons.css">
+    <link rel="stylesheet" href="css/icons-css/icons-codes.css">
+    <link rel="stylesheet" href="css/icons-css/icons-embedded.css">
+    <link rel="stylesheet" href="css/icons-css/icons-ie7.css">
+    <link rel="stylesheet" href="css/icons-css/icons-ie7-codes.css">
+
+</head>
+<body>
+<div id="background">
+    <div id="background-layer"></div>
+</div>
+<div id="wrapper">
+    <div id="navigation-bar" class="transperent">
+        <a href="#home" aria-label="Home" >
+            <span class="icon-home-1 icon current animate-spin"></span>
+        </a>
+        <a href="#destinations" aria-label="Destinations" >
+            <span class="icon-globe-1 icon shake"></span>
+        </a>
+        <a href="#about" aria-label="About" >
+            <span class="icon-user icon shake"></span>
+        </a>
+        <a href="#contacts" aria-label="Contacts">
+            <span class="icon-contacts icon shake"></span>
+        </a>
+        <a href="#" aria-label="Add article" data-bind="click: addArticle">
+            <span class="icon-plus icon"></span>
+        </a>
+    </div>
+
+    <div id="content" data-bind="visible: !isOpenedPanel() && !hasMoreDetails()">
+        <div id="home">
+           <h1>Welcome to the world's best tourism site!</h1>
+            <h3>Here you can find many destinations all over the world!</h3>
+            <h3>You can also add one if you want.</h3>
+        </div>
+        <div id="destinations" >
+            <div class="transperent">
+                <h1>Top 3 Destinations</h1>
+                <!--ko foreach: topArticles  -->
+                <div class="article transperent" data-bind="click: function(){$parent.openMoreDetails($data)}">
+                    <h1 class="title" data-bind="text: $data.title"></h1>
+                    <img class="image" data-bind="attr: {src: $data.url}" />
+                    <div class="more"><a href="#">Click for more...</a></div>
+                </div>
+                <!--/ko -->
+                <div id="seeMore"><a href="destinations.html">See more...</a></div>
+            </div>
+        </div>
+        <div id="about" >
+            <div class="transperent">
+                <h1>What is this site about?</h1>
+                <div>
+                    This site is about to show the beauty of the nature and the lovely places around us.
+                    Here you can find many places all over the world. Maybe you will find a wonderful place for relax,
+                    that you didn't even now exist.
+                </div>
+                <h3>If you have any recommendations on how to improve this site, please
+                    <a href="#contacts">contact us.</a></h3>
+            </div>
+        </div>
+        <div id="contacts" class="transperent">
+            <h1>Who is the author?</h1>
+            <div id="portret">
+                <img src="images/portret.JPG" alt="portret" />
+            </div>
+            <div id="info">
+                <div>
+                    <h2>About me:</h2>
+                    I am Monika Gerova and i am third year student at Sofia University on my way to get a bachelor degree in "Software engeneering".
+                    In my free time i love to create sites and develop professionally.
+                </div>
+                <div>
+                    <h2>You can see my work here:  </h2>
+                    <a href="https://github.com/MonikaGerova" class="mail">
+                        <span class="icon icon-github shake"></span>
+                        <span class="text ">Monika Gerova</span>
+                    </a>
+                </div>
+                <div>
+                    <h2>If you like my work you can contact me: </h2>
+                        <a href="mailto:mgerova0@gmail.com" class="mail">
+                            <span class="icon icon-email-1 shake"></span>
+                            <span class="text ">mgerova0@gmail.com</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/monika-gerova-1b449010b" class="linkedin">
+                            <span class="icon icon-linkedin shake"></span>
+                            <span class="text">Monika Gerova</span>
+                        </a>
+                        <a href="https://www.facebook.com/Monika.Gerova.0" class="fb">
+                            <span class="icon icon-facebook shake"></span>
+                            <span class="text">Monika Gerova</span>
+                        </a>
+                        <a href="#number" class="mobile">
+                            <span class="icon icon-mobile shake"></span>
+                            <span class="text" id="number">0888890958</span>
+                        </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ko with: moreData -->
+        <!-- ko template: 'ArticleMoreDetails' -->
+        <!-- /ko -->
+    <!-- /ko -->
+    <!-- ko with: addVM -->
+        <!--ko template: 'AddArticlePanel' -->
+        <!--/ko -->
+    <!-- /ko -->
+
+</div>
+
+<script type="text/html" id="AddArticlePanel">
+    <div class="transperent" id="AddPanel">
+        <div>
+            <h1>Add Destination</h1>
+            <div class="icon icon-cancel shake" data-bind="click: $parent.closePanel"></div>
+        </div>
+        <div id="form">
+            <div>
+                <span>Name:</span>
+                <input type="text" data-bind="textInput: name, attr: {class: isValidCSS(name), placeholder: name.error}" maxlength="33"/>
+            </div>
+            <div>
+                <span>Description:</span>
+                <!--<span data-bind="text: childrens"></span>-->
+                <textarea data-bind="textInput: description, attr: {class: isValidCSS(description), placeholder: description.error}"  maxlength="201"></textarea>
+            </div>
+            <div>
+                <span>Url:</span>
+                <input type="text" data-bind="textInput: url, attr: {class: isValidCSS(url), placeholder: url.error}"/>
+            </div>
+            <div>
+                <span>Location:</span>
+                <input type="text" data-bind="textInput: location, attr: {class: isValidCSS(location), placeholder: location.error}"  maxlength="31"/>
+            </div>
+        </div>
+        <div id="preview">
+            <img src="" alt="preview" data-bind="visible: url , attr:{src: url.isValid() ? url : 'images/preview.png' }"/>
+        </div>
+        <div id="save">
+            <button data-bind="attr:{disabled: !isValidRequest()}, click: $parent.uploadArticle">Upload</button>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="ArticleMoreDetails">
+    <div id="moreDetails" class="transperent">
+        <div class="icon icon-cancel shake" data-bind="click: $parent.closeMoreDetails"></div>
+        <h1><span data-bind="text: $data.title"></span></h1>
+        <div class="image-full-size"><img data-bind="attr:{src: $data.url}" src="" /></div>
+        <div class="details">
+            <div>
+                <div class="description"><span>Description: </span></div>
+                <div class="detail" data-bind="text: $data.description"></div>
+            </div>
+            <div>
+                <div class="location"><span>Location:</span></div>
+                <div class="detail" data-bind="text: $data.location"></div>
+            </div>
+
+        </div>
+
+    </div>
+</script>
+
+
+<script src="libs/jquery-3.1.0.js"></script>
+<script src="libs/knockout-3.4.0.js"></script>
+<script src="libs/knockout-3.4.0.debug.js"></script>
+<script src="libs/knockout.validation.js"></script>
+<script type="text/javascript" src="index.js"></script>
+
+</body>
+</html>

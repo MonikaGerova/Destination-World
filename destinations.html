@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Destination World</title>
+
+    <link rel="stylesheet" href="css/hint.css">
+    <link href="css/styles.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/icons-css/animation.css">
+    <link rel="stylesheet" href="css/icons-css/icons.css">
+    <link rel="stylesheet" href="css/icons-css/icons-codes.css">
+    <link rel="stylesheet" href="css/icons-css/icons-embedded.css">
+    <link rel="stylesheet" href="css/icons-css/icons-ie7.css">
+    <link rel="stylesheet" href="css/icons-css/icons-ie7-codes.css">
+
+
+</head>
+<body>
+<div id="background">
+    <div id="background-layer"></div>
+</div>
+<div id="wrapper">
+    <div id="back" >
+        <ul aria-label="Back" clas="hinnt-right" id="parent">
+            <li class="icon-list icon current">
+                <ul id="dropdown">
+                    <li><a href="index.html#home" aria-label="Home" >
+                        <span class="icon-home-1 icon "></span>
+                    </a>
+                    </li>
+                    <li><a href="index.html#destinations" aria-label="Destinations" >
+                        <span class="icon-globe-1 icon "></span>
+                    </a></li>
+                   <li><a href="index.html#about" aria-label="About" >
+                        <span class="icon-user icon "></span>
+                    </a></li>
+                    <li><a href="index.html#contacts" aria-label="Contacts">
+                        <span class="icon-contacts icon "></span>
+                    </a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div id="content" data-bind="visible: !hasMoreDetails()">
+        <div id="destinations">
+            <div class="transperent">
+                <h1>Destinations</h1>
+                <!--ko foreach: articles  -->
+                <div class="article transperent" data-bind="click: function(){$parent.openMoreDetails($data)}">
+                    <h1 class="title" data-bind="text: $data.title"></h1>
+                    <img class="image" data-bind="attr: {src: $data.url}" />
+                    <div class="more"><a href="#">Click for more...</a></div>
+                </div>
+                <!--/ko -->
+            </div>
+        </div>
+</div>
+    <!-- ko with: moreData -->
+        <!-- ko template: 'ArticleMoreDetails' -->
+        <!-- /ko -->
+    <!-- /ko -->
+</div>
+<script type="text/html" id="ArticleMoreDetails">
+    <div id="moreDetails" class="transperent">
+        <div class="icon icon-cancel shake" data-bind="click: $parent.closeMoreDetails"></div>
+        <h1><span data-bind="text: $data.title"></span></h1>
+        <div class="image-full-size"><img data-bind="attr:{src: $data.url}" src="" /></div>
+        <div class="details">
+            <div>
+                <div class="description"><span>Description: </span></div>
+                <div class="detail" data-bind="text: $data.description"></div>
+            </div>
+            <div>
+                <div class="location"><span>Location:</span></div>
+                <div class="detail" data-bind="text: $data.location"></div>
+            </div>
+
+        </div>
+
+    </div>
+</script>
+<script src="libs/jquery-3.1.0.js"></script>
+<script src="libs/knockout-3.4.0.js"></script>
+<script src="libs/knockout-3.4.0.debug.js"></script>
+<script src="libs/knockout.validation.js"></script>
+<script type="text/javascript" src="index.js"></script>
+
+</body>
+</html>
